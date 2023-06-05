@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     // public float moveSpeed;
     [SerializeField]private float moveSpeed =10f;
     [SerializeField]private float rotateSpeed;
+    [SerializeField]private GameInput gameInput;
+
     // Update is called once per frame
     private void Update()
     {
@@ -15,24 +17,7 @@ public class Player : MonoBehaviour
     }
     void CharMove()
     {
-        Vector2 inputVector= new Vector2(0,0);
-        if(Input.GetKey(KeyCode.W))
-        {
-            inputVector.y =+1;
-        }
-        if(Input.GetKey(KeyCode.A))
-        {
-            inputVector.x =-1;
-        }
-        if(Input.GetKey(KeyCode.S))
-        {
-            inputVector.y =-1;
-        }
-        if(Input.GetKey(KeyCode.D))
-        {
-            inputVector.x =+1;
-        }
-        inputVector = inputVector.normalized;
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
         Vector3 movDir= new Vector3(inputVector.x,0f,inputVector.y);
         // transform.position += (Vector3)inputVector; 
         transform.position += movDir*moveSpeed* Time.deltaTime; 
